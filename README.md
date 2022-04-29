@@ -241,6 +241,7 @@ $ docker exec -it magento.app bash
 
 Get the details for the linked containers to the application.
 ```
+$ docker exec -it magento.app bash
 cat /etc/hosts
 ```
 
