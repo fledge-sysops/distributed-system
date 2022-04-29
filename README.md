@@ -55,6 +55,7 @@ mkdir webroot
 mkdir backup
 mkdir config
 ````
+```Copy file form additional directory - app.conf to the ptah /var/www/html/config```
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### Step 2: Create mysql container
 You can choess any of the mysql image suitable to your application.
