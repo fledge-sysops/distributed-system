@@ -250,7 +250,7 @@ Database
 Root User:  mysql -h dbs -u root -proot@123
 DB User:  mysql -h dbs -u magento -pmagento@123
 ```
-```user dbs as hostname for the mysql operations in application container environmnet, for ex: magento env.php file have db details as hostnmae use hostname: dbs```
+```Use dbs as hostname for the mysql operations in application container environmnet, for ex: magento env.php file have db details as hostnmae so use hostname: dbs```
 
 Redis
 ```
