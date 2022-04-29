@@ -265,6 +265,7 @@ curl els:9200
 ```
 ```For any of the Elasticsearch serveice user hostname as "els"```
 
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 Note: Server Name inside the container should be change on nginx configuration and if you manage to proxy on host machine mentaion in step 6.
 Inside the Web Container
