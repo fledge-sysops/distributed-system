@@ -1,4 +1,4 @@
-from ubuntu:18.04
+from ubuntu:20.04
 
 MAINTAINER Fledge Digital <sysops@fledgedigital.com>
 
