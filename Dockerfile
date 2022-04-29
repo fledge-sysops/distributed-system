@@ -39,6 +39,7 @@ RUN apt-get update && apt-get install -y sudo vim \
     && apt-get install -y apache2-utils \
     && apt-get install -y debconf-utils \
     && apt-get install -y mysql-client \
+    && apt-get install -y redis-tools \
     && LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php \
     && apt-get update \
     && apt-get install -y php7.3-fpm php7.3-mysql \
