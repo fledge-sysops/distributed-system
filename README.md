@@ -37,7 +37,7 @@ Download zip and extartc to the /root/home
 Repository or extratcted files will be found on new direcoy - distributed-system under /root/home.
 cd  /root/home/distributed-system
 
-Apply below command to create application server Docker Image to host magento application.  
+Apply below command to create application server container to host magento application.  
 $ docker build -t magento-app-server . 
 
 The above coommand will start create an application docker image locally.
@@ -232,4 +232,21 @@ location /dbs {
 
 Magento code should be host inside the web container - ***/var/www/html/magento/webroot***
 
+-------------------------------------------------------------------------------------------------------------------------------------------
+### Step 8: Command to connect the service
+Access to the application/web-server container.(magento application hosted container)
+```docker exec -it magento.app bash```
 
+Get the details for the linked containers to the application.
+```cat /etc/hosts```
+
+You can have access to the containers from the application server using below commnads:
+Database 
+Root User:  ```mysql -h dbs -u root -proot@123```
+DB USer:  ```mysql -h dbs -u magento -pmagento@123```
+
+Redis
+```redis-cli -h redis```
+
+Elasticsearch
+```curl els:9200```
