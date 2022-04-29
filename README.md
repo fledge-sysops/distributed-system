@@ -78,7 +78,7 @@ docker run -itd --restart=always --name elsearch790 -p 4305:9200 -p 4306:9300 -e
 ### Step 4: create redis container
 ```
 FROM redis
-docker run -itd --restart=always --name magento.redis -p 4405:6379 elasticsearch:7.9.0
+docker run -itd --restart=always --name magento.redis -p 4405:6379 redis:5.0
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### Step 5: command to launch application container
