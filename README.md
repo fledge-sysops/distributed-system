@@ -28,7 +28,7 @@ https://docs.docker.com/engine/install/ubuntu/
 
 Create Application Image
 ```
-Cloen the repository https://github.com/fledge-sysops/distributed-system.git
+Clone the repository https://github.com/fledge-sysops/distributed-system.git
 
 or
 
