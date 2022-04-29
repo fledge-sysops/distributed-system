@@ -37,7 +37,7 @@ Download zip and extartc to the /root/home
 Repository or extratcted files will be found on new direcoy - distributed-system under /root/home.
 cd  /root/home/distributed-system
 
-Apply below command to create application server container to host magento application.  
+Apply below command to create application server Docker Image to host magento application.  
 $ docker build -t magento-app-server . 
 
 The above coommand will start create an application docker image locally.
