@@ -1,6 +1,6 @@
 from ubuntu:18.04
 
-MAINTAINER KTPL <admin@krishtechnolabs.com>
+MAINTAINER Fledge Digital <sysops@fledgedigital.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
