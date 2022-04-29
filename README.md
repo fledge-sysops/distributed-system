@@ -71,19 +71,17 @@ $ docker run -itd --name=magento.db -p 3905:3306 -e MARIADB_USER=magento -e MARI
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### Step 3: Create elasticsearch container
 ```
-FROM elasticsearch:7.9.0
-docker run -itd --restart=always --name elsearch790 -p 4305:9200 -p 4306:9300 -e "discovery.type=single-node" elasticsearch:7.9.0
+$ docker run -itd --restart=always --name elsearch790 -p 4305:9200 -p 4306:9300 -e "discovery.type=single-node" elasticsearch:7.9.0
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### Step 4: create redis container
 ```
-FROM redis
-docker run -itd --restart=always --name magento.redis -p 4405:6379 redis:5.0
+$ docker run -itd --restart=always --name magento.redis -p 4405:6379 redis:5.0
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### Step 5: command to launch application container
 ```
-docker run -itd --name=magento.app --hostname=magento -e dev_user=magento -e dev_password=magento@123 -e pma_user=pma -e project_name=magento -e root_password=root@123 -p 4505:80 -p 4506:22 --link magento.db:dbs --link elsearch790:els --link magento.redis:redis -v /var/www/html:/var/www/html/magento --restart=always magento-app-server
+$ docker run -itd --name=magento.app --hostname=magento -e dev_user=magento -e dev_password=magento@123 -e pma_user=pma -e project_name=magento -e root_password=root@123 -p 4505:80 -p 4506:22 --link magento.db:dbs --link elsearch790:els --link magento.redis:redis -v /var/www/html:/var/www/html/magento --restart=always magento-app-server
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### Step 6: Install nginx on the host machine
@@ -238,7 +236,7 @@ Magento code should be host inside the web container - ***/var/www/html/magento/
 
 Access to the application/web-server container.(magento application hosted container)
 ```
-docker exec -it magento.app bash
+$ docker exec -it magento.app bash
 ```
 
 Get the details for the linked containers to the application.
