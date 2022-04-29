@@ -268,12 +268,15 @@ curl els:9200
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 Note: Server Name inside the container should be change on nginx configuration and if you manage to proxy on host machine mentaion in step 6.
-Inside the Web Container
+
 ```
+Inside the Web Container
+$ docker exec -it magento.app bash
+
 vim /etc/nginx/conf.d/default.conf
 Line no 11
 server_name example.com  default_server; #servername should be the change
 
-You have to chage exampple.com to your website URL.
+You have to change example.com to your website URL.
 ```
 
