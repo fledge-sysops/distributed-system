@@ -264,3 +264,15 @@ Elasticsearch
 curl els:9200
 ```
 ```For any of the Elasticsearch serveice user hostname as "els"```
+
+
+Note: Server Name inside the container should be change on nginx configuration and if you manage to proxy on host machine mentaion in step 6.
+Inside the Web Container
+```
+vim /etc/nginx/conf.d/default.conf
+Line no 11
+server_name example.com  default_server; #servername should be the change
+
+You have to chage exampple.com to your website URL.
+```
+
