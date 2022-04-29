@@ -234,19 +234,25 @@ Magento code should be host inside the web container - ***/var/www/html/magento/
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### Step 8: Command to connect the service
+```
 Access to the application/web-server container.(magento application hosted container)
 ```docker exec -it magento.app bash```
-
+```
+```
 Get the details for the linked containers to the application.
 ```cat /etc/hosts```
-
+```
+```
 You can have access to the containers from the application server using below commnads:
 Database 
 Root User:  ```mysql -h dbs -u root -proot@123```
 DB USer:  ```mysql -h dbs -u magento -pmagento@123```
-
+```
+```
 Redis
 ```redis-cli -h redis```
-
+```
+```
 Elasticsearch
 ```curl els:9200```
+```
