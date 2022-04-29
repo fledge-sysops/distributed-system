@@ -32,9 +32,9 @@ cd /home/root
 
 Cloen the repository https://github.com/fledge-sysops/distributed-system.git
 or
-Download zip and extartc to the /root/home
+Download zip and extract to the /root/home
 
-Repository or extratcted files will be found on new direcoy - distributed-system under /root/home.
+Repository or extracted files will be found on new direcoy - distributed-system under /root/home.
 cd  /root/home/distributed-system
 
 Apply below command to create application server container to host magento application.  
@@ -55,7 +55,7 @@ mkdir webroot
 mkdir backup
 mkdir config
 ````
-```Copy file form additional directory - app.conf to the ptah /var/www/html/config```
+```Copy file form additional directory - app.conf to the path /var/www/html/config```
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### Step 2: Create mysql container
 You can choess any of the mysql image suitable to your application.
