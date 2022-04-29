@@ -249,9 +249,9 @@ You can have access to the containers from the application server using below co
 Database 
 ```
 Root User:  mysql -h dbs -u root -proot@123
-DB USer:  mysql -h dbs -u magento -pmagento@123
+DB User:  mysql -h dbs -u magento -pmagento@123
 ```
-```user dbs as hostname for the mysql operations in application container environmnet, for ex: magento env.php file have db details as hostnmae user hostname: dbs```
+```user dbs as hostname for the mysql operations in application container environmnet, for ex: magento env.php file have db details as hostnmae use hostname: dbs```
 
 Redis
 ```
