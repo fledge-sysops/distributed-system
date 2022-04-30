@@ -74,12 +74,12 @@ $ docker run -itd --name=magento.db -p 3905:3306 -e MARIADB_USER=magento -e MARI
 $ docker run -itd --restart=always --name elsearch790 -p 4305:9200 -p 4306:9300 -e "discovery.type=single-node" elasticsearch:7.9.0
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 4: create redis container
+### Step 4: Create redis container
 ```
 $ docker run -itd --restart=always --name magento.redis -p 4405:6379 redis:5.0
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 5: command to launch application container
+### Step 5: Command to launch application container
 ```
 $ docker run -itd --name=magento.app --hostname=magento -e dev_user=magento -e dev_password=magento@123 -e pma_user=pma -e project_name=magento -e root_password=root@123 -p 4505:80 -p 4506:22 --link magento.db:dbs --link elsearch790:els --link magento.redis:redis -v /var/www/html:/var/www/html/magento --restart=always magento-app-server
 ```
@@ -221,7 +221,7 @@ location /dbs {
 }
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 7:Directory Linking path between host machine and container.
+### Step 7:Directory linking path between host machine and container.
 
 | Directory  | Host Machine  | Container   | 
 |---|---|---|
