@@ -32,9 +32,9 @@ cd /home/root
 
 Cloen the repository https://github.com/fledge-sysops/distributed-system.git
 or
-Download zip and extartc to the /root/home
+Download zip and extract to the /root/home
 
-Repository or extratcted files will be found on new direcoy - distributed-system under /root/home.
+Repository or extracted files will be found on new direcoy - distributed-system under /root/home.
 cd  /root/home/distributed-system
 
 Apply below command to create application server container to host magento application.  
@@ -55,7 +55,7 @@ mkdir webroot
 mkdir backup
 mkdir config
 ````
-```Copy file form additional directory - app.conf to the ptah /var/www/html/config```
+```Copy file form additional directory - app.conf to the path /var/www/html/config```
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### Step 2: Create mysql container
 You can choess any of the mysql image suitable to your application.
@@ -71,19 +71,17 @@ $ docker run -itd --name=magento.db -p 3905:3306 -e MARIADB_USER=magento -e MARI
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### Step 3: Create elasticsearch container
 ```
-FROM elasticsearch:7.9.0
-docker run -itd --restart=always --name elsearch790 -p 4305:9200 -p 4306:9300 -e "discovery.type=single-node" elasticsearch:7.9.0
+$ docker run -itd --restart=always --name elsearch790 -p 4305:9200 -p 4306:9300 -e "discovery.type=single-node" elasticsearch:7.9.0
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 4: create redis container
+### Step 4: Create redis container
 ```
-FROM redis
-docker run -itd --restart=always --name magento.redis -p 4405:6379 redis:5.0
+$ docker run -itd --restart=always --name magento.redis -p 4405:6379 redis:5.0
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 5: command to launch application container
+### Step 5: Command to launch application container
 ```
-docker run -itd --name=magento.app --hostname=magento -e dev_user=magento -e dev_password=magento@123 -e pma_user=pma -e project_name=magento -e root_password=root@123 -p 4505:80 -p 4506:22 --link magento.db:dbs --link elsearch790:els --link magento.redis:redis -v /var/www/html:/var/www/html/magento --restart=always magento-app-server
+$ docker run -itd --name=magento.app --hostname=magento -e dev_user=magento -e dev_password=magento@123 -e pma_user=pma -e project_name=magento -e root_password=root@123 -p 4505:80 -p 4506:22 --link magento.db:dbs --link elsearch790:els --link magento.redis:redis -v /var/www/html:/var/www/html/magento --restart=always magento-app-server
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### Step 6: Install nginx on the host machine
@@ -223,7 +221,7 @@ location /dbs {
 }
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 7:Directory Linking path between host machine and container.
+### Step 7:Directory linking path between host machine and container.
 
 | Directory  | Host Machine  | Container   | 
 |---|---|---|
@@ -238,11 +236,12 @@ Magento code should be host inside the web container - ***/var/www/html/magento/
 
 Access to the application/web-server container.(magento application hosted container)
 ```
-docker exec -it magento.app bash
+$ docker exec -it magento.app bash
 ```
 
 Get the details for the linked containers to the application.
 ```
+$ docker exec -it magento.app bash
 cat /etc/hosts
 ```
 
@@ -252,14 +251,32 @@ Database
 Root User:  mysql -h dbs -u root -proot@123
 DB User:  mysql -h dbs -u magento -pmagento@123
 ```
-```user dbs as hostname for the mysql operations in application container environmnet, for ex: magento env.php file have db details as hostnmae use hostname: dbs```
+```For any of the Database serveice user hostname as "dbs"```
 
 Redis
 ```
 redis-cli -h redis
 ```
+```For any of the redis serveice user hostname as "redis"```
 
 Elasticsearch
 ```
 curl els:9200
 ```
+```For any of the Elasticsearch serveice user hostname as "els"```
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Note: Server Name inside the container should be change on nginx configuration and if you manage to proxy on host machine mentaion in step 6.
+
+```
+Inside the Web Container
+$ docker exec -it magento.app bash
+
+vim /etc/nginx/conf.d/default.conf
+Line no 11
+server_name example.com  default_server; #servername should be the change
+
+You have to change example.com to your website URL.
+```
+
