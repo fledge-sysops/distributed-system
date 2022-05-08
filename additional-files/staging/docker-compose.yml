@@ -49,10 +49,10 @@ services:
       pma_user: pma
       project_name: magento
       root_password: root@123
-#    depends_on:
-#      - db
-#      - redis
-#      - els
+    depends_on:
+      - db
+      - redis
+      - els
     links:
       - 'staging_db:dbs'
       - 'staging_redis:cache'
