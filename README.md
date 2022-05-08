@@ -47,7 +47,7 @@ $ docker images
 
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 1: Create Directory on Host machine where docker install.
+### Create Directory on Host machine where docker install.
 ```
 mkdir -p cd /var/www/html
 cd /var/www/html
@@ -56,8 +56,22 @@ mkdir backup
 mkdir config
 ````
 ```Copy file form additional directory - app.conf to the path /var/www/html/config```
+
+Directory linking path between host machine and containers.
+
+| Directory  | Host Machine Path | Container Path  | Contaiiner
+|---|---|---|---|
+|MySQL Data|/var/www/mysql|/var/lib/mysql|Database Container
+|Project Webroot|/var/www/html/webroot|/var/www/html/magento/webroot|Application Container
+|Backup Directory|/var/www/html/backup|/var/www/html/magento/backup|Application Container
+|Config Directory|/var/www/html/config|/var/www/html/magento/config|Application Container
+
+Magento code should be host inside the web container - ***/var/www/html/magento/webroot***
+
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 2: Create mysql container
+
+# Manual Container Creation Process
+### Step 1: Create mysql container
 You can choess any of the mysql image suitable to your application.
 ```
 percona:5.7
@@ -69,22 +83,39 @@ mariadb:10.2
 $ docker run -itd --name=magento.db -p 3905:3306 -e MARIADB_USER=magento -e MARIADB_PASSWORD=magento@123 -e MARIADB_DATABASE=magento -e MARIADB_ROOT_PASSWORD=root@123  mariadb:10.2
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 3: Create elasticsearch container
+### Step 2: Create elasticsearch container
 ```
 $ docker run -itd --restart=always --name elsearch790 -p 4305:9200 -p 4306:9300 -e "discovery.type=single-node" elasticsearch:7.9.0
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 4: Create redis container
+### Step 3: Create redis container
 ```
 $ docker run -itd --restart=always --name magento.redis -p 4405:6379 redis:5.0
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 5: Command to launch application container
+### Step 4: Command to launch application container
 ```
 $ docker run -itd --name=magento.app --hostname=magento -e dev_user=magento -e dev_password=magento@123 -e pma_user=pma -e project_name=magento -e root_password=root@123 -p 4505:80 -p 4506:22 --link magento.db:dbs --link elsearch790:els --link magento.redis:redis -v /var/www/html:/var/www/html/magento --restart=always magento-app-server
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 6: Install nginx on the host machine
+# Docker Compose Container Creation
+
+Staging Environmnet:
+```
+$ docker compose up -d
+```
+With the file ```depends_on:``` as the note point, Compose have specified condition in the file. Before launching the app/web container, it will create a dependency container with ```links:``` that connects the dependency container service.
+
+
+
+Staging Configuration file path:  ```additional-files/staging/docker-compose.yml```
+Production Configuration file path:  ```additional-files/production/docker-compose.yml```
+
+```Note: Production docker-compose.yml file has only application container creation configuration. We can use other standalone and distributed hosted servcers or managed services as solution.```
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+# Nginx Installation and Reverse Proxy Configuration
+### Install nginx on the host machine
 ```
 wget http://nginx.org/keys/nginx_signing.key
 apt-key add nginx_signing.key
@@ -94,7 +125,7 @@ apt-get -y update
 apt-get install -y nginx
 ```
 
-### Step 6.1: Configure Nginx
+### Configure Nginx
 Update optimize nginx.conf on Host machine.
 vim /etc/nginx/nginx.conf
 ```
@@ -170,7 +201,9 @@ http {
 }
 ```
 
-### Step 6.2: Nginx Proxy Virtual host configuration on host machine.
+
+
+### Nginx Reverse Proxy Virtual host configuration on host machine.
 Add proxy configuration to conf.d/example.conf
 ```
 server {
@@ -220,19 +253,9 @@ location /dbs {
 
 }
 ```
--------------------------------------------------------------------------------------------------------------------------------------------
-### Step 7:Directory linking path between host machine and container.
-
-| Directory  | Host Machine  | Container   | 
-|---|---|---|
-|Project Webroot|/var/www/html/webroot|/var/www/html/magento/webroot|
-|Backup Directory|/var/www/html/backup|/var/www/html/magento/backup|
-|Config Directory|/var/www/html/config|/var/www/html/magento/config|
-
-Magento code should be host inside the web container - ***/var/www/html/magento/webroot***
 
 -------------------------------------------------------------------------------------------------------------------------------------------
-### Step 8: Command to connect the service from application container
+### Command to connect the service from application container
 
 Access to the application/web-server container.(magento application hosted container)
 ```
@@ -279,4 +302,5 @@ server_name example.com  default_server; #servername should be the change
 
 You have to change example.com to your website URL.
 ```
+
 
