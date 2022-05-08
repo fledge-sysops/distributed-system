@@ -55,7 +55,7 @@ services:
       - els
     links:
       - 'staging_db:dbs'
-      - 'staging_redis:cache'
+      - 'staging_redis:redis'
       - 'staging_elasticsearch:els'
     ports:
       - "2201:22"
