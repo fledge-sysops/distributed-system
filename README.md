@@ -61,7 +61,7 @@ mkdir config
 
 Directory linking path between host machine and containers.
 
-| Directory  | Host Machine Path | Container Path  | Contaiiner
+| Directory  | Host Machine Path | Container Path  | Container
 |---|---|---|---|
 |MySQL Data|/var/www/mysql|/var/lib/mysql|Database Container
 |Project Webroot|/var/www/html/webroot|/var/www/html/magento/webroot|Application Container
