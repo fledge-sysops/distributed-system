@@ -49,7 +49,9 @@ $ docker images
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### Create Directory on Host machine where docker install.
 ```
-mkdir -p cd /var/www/html
+mkdir -p /var/www/mysql             #Create MySQL Data Direcoty
+mkdir -p /var/www/html              #Create Application Data Directory
+
 cd /var/www/html
 mkdir webroot
 mkdir backup
