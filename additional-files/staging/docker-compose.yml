@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+  staging_db:
+    image: mariadb:10.2
+    command: --max_allowed_packet=64M
+    container_name: magento_staging.db
+    hostname: database
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_DATABASE: magento235
+        MYSQL_USER: magento
+        MYSQL_PASSWORD: magento@123
+        MYSQL_HOST: '0.0.0.0'
+    ports:
+        - "3306:3306"
+    volumes:
+      - /var/www/mysql:/var/lib/mysql
+
+
+  staging_redis:
+    image: redis:5.0
+    container_name: magento_staging.redis
+    hostname: redis
+    restart: always
+    ports:
+        - "6379:6379"
+
+  staging_elasticsearch:
+    image: elasticsearch:7.9.0
+    container_name: magento_staging.els790
+    hostname: elasticsearch
+    restart: always
+    environment: 
+      discovery.type: single-node    
+    ports:
+        - "9200:9200"
+        - "9300:9300"
+
+  staging_app:
+    image: fledgedigital/magento-app-server:7.3
+    container_name: magento_staging.app
+    hostname: magento
+    restart: always
+    environment:
+      dev_user: magento
+      dev_password: magento@123
+      pma_user: pma
+      project_name: magento
+      root_password: root@123
+#    depends_on:
+#      - db
+#      - redis
+#      - els
+    links:
+      - 'staging_db:dbs'
+      - 'staging_redis:cache'
+      - 'staging_elasticsearch:els'
+    ports:
+      - "2201:22"
+      - "80:80"         #Change web port 80 to anyother port, if we host Nginx reverse proxy on smae server.
+    volumes:
+      - /var/www/html:/var/www/html/magento
+    

@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  production_app:
+    image: fledgedigital/magento-app-server:7.3
+    container_name: magento_production.app
+    hostname: magento
+    restart: always
+    environment:
+      dev_user: magento
+      dev_password: magento@123
+      pma_user: pma
+      project_name: magento
+      root_password: root@123
+    ports:
+      - "80:80"
+    volumes:
+      - /var/www/html/webroot:/var/www/html/magento
