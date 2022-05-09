@@ -30,7 +30,7 @@ Create custom image for web-application server using the dockerfile.
 ```
 cd /home/root
 
-Cloen the repository https://github.com/fledge-sysops/distributed-system.git
+Clone the repository https://github.com/fledge-sysops/distributed-system.git
 or
 Download zip and extract to the /root/home
 
