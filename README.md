@@ -72,7 +72,7 @@ Magento code should be host inside the web container - ***/var/www/html/magento/
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
-# Manual Container Creation Process
+# Method - 1 Manual Container Creation Process
 ### Step 1: Create mysql container
 You can choess any of the mysql image suitable to your application.
 ```
@@ -100,13 +100,19 @@ $ docker run -itd --restart=always --name magento.redis -p 4405:6379 redis:5.0
 $ docker run -itd --name=magento.app --hostname=magento -e dev_user=magento -e dev_password=magento@123 -e pma_user=pma -e project_name=magento -e root_password=root@123 -p 4505:80 -p 4506:22 --link magento.db:dbs --link elsearch790:els --link magento.redis:redis -v /var/www/html:/var/www/html/magento --restart=always magento-app-server
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
-# Docker Compose Container Creation
 
-Staging Environmnet:
+# Method 2 - Docker Compose Container Creation
+
+Create Container
 ```
 $ docker compose up -d
 ```
 With the file ```depends_on:``` as the note point, Compose have specified condition in the file. Before launching the app/web container, it will create a dependency container with ```links:``` that connects the dependency container service.
+
+Destroy or Terminate Container
+```
+$ docker compose down
+```
 
 
 
